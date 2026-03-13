@@ -89,18 +89,14 @@
     /* ── HERO ── */
     .hero {
       position: relative;
-      height: 100vh;
-      min-height: 680px;
       display: flex;
-      align-items: flex-end;
-      overflow: hidden;
+      flex-direction: column;
     }
     .hero-bg {
       position: absolute; inset: 0;
       background-image: url('https://residencialmaziero.com.br/wp-content/uploads/2026/03/lazer-thumb.webp');
       background-size: cover;
       background-position: center 30%;
-      transform: scale(1.05);
       animation: heroZoom 12s ease-out forwards;
     }
     @keyframes heroZoom {
@@ -111,15 +107,19 @@
       position: absolute; inset: 0;
       background: linear-gradient(
         to top,
-        rgba(10,20,12,0.92) 0%,
-        rgba(10,20,12,0.5) 45%,
-        rgba(10,20,12,0.1) 100%
+        rgba(10,20,12,0.95) 0%,
+        rgba(10,20,12,0.55) 50%,
+        rgba(10,20,12,0.15) 100%
       );
     }
     .hero-content {
       position: relative;
-      padding: 0 6vw 6vw;
-      max-width: 900px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 7rem 6vw 3rem;
+      box-sizing: border-box;
       animation: fadeUp .9s .2s both;
     }
     .hero-tag {
@@ -135,7 +135,7 @@
     }
     .hero h1 {
       font-family: var(--font-serif);
-      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
       font-weight: 300;
       line-height: 1.08;
       color: var(--white);
@@ -146,50 +146,51 @@
       font-size: 1.05rem;
       font-weight: 300;
       color: rgba(255,255,255,0.75);
-      letter-spacing: .03em;
-      margin-bottom: 2.8rem;
+      margin-bottom: 2.5rem;
       max-width: 520px;
       line-height: 1.75;
     }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
     .btn-primary {
       background: var(--gold);
       color: var(--white);
-      font-size: .8rem;
+      font-size: .82rem;
       font-weight: 600;
-      letter-spacing: .15em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       text-decoration: none;
-      padding: 1.05rem 2.5rem;
-      transition: background .25s, transform .2s;
+      padding: 1.1rem 2.2rem;
+      transition: background .25s;
     }
-    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--gold-dark); }
     .btn-ghost {
       background: transparent;
       color: var(--white);
-      font-size: .8rem;
+      font-size: .82rem;
       font-weight: 400;
       letter-spacing: .12em;
       text-transform: uppercase;
       text-decoration: none;
-      padding: 1.05rem 2rem;
-      border: 1px solid rgba(255,255,255,0.35);
+      padding: 1.1rem 2rem;
+      border: 1px solid rgba(255,255,255,0.4);
       transition: border-color .25s, color .25s;
     }
     .btn-ghost:hover { border-color: var(--gold-light); color: var(--gold-light); }
 
-    /* hero stats bar */
+    /* stats bar — fora do hero, abaixo */
     .hero-stats {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      display: flex;
-      background: rgba(45,74,47,0.92);
-      backdrop-filter: blur(8px);
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: rgba(45,74,47,0.97);
     }
     .hero-stat {
-      flex: 1;
       text-align: center;
-      padding: 1.5rem 1rem;
+      padding: 1.6rem 1rem;
       border-right: 1px solid rgba(255,255,255,0.1);
     }
     .hero-stat:last-child { border-right: none; }
@@ -709,116 +710,69 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.4rem; }
-      .nav-cta { font-size: .75rem; padding: .65rem 1.2rem; letter-spacing: .08em; }
+      .nav-cta { font-size: .75rem; padding: .65rem 1.2rem; }
       section { padding: 4rem 5vw; }
 
       /* hero */
-      .hero { min-height: 100svh; }
-      .hero-content { padding: 0 5vw 18rem; }
-      .hero-tag { font-size: .72rem; }
-      .hero-sub { font-size: 1rem; }
-      .hero-actions { flex-direction: column; gap: .8rem; }
-      .btn-primary, .btn-ghost { text-align: center; padding: 1.1rem 1.5rem; font-size: .85rem; }
+      .hero-content { min-height: 100svh; padding: 6rem 5vw 2.5rem; }
+      .hero h1 { font-size: 2.6rem; }
+      .hero-sub { font-size: .95rem; margin-bottom: 2rem; }
+      .hero-actions { flex-direction: column; gap: .75rem; }
+      .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 1rem 1.2rem; font-size: .82rem; box-sizing: border-box; }
 
-      /* stats bar */
-      .hero-stats { display: grid; grid-template-columns: 1fr 1fr; position: static; }
-      .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 1.2rem; }
+      /* stats 2x2 */
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .hero-stat { padding: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
       .hero-stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.1); }
-      .hero-stat-num { font-size: 1.8rem; }
-      .hero-stat-label { font-size: .72rem; }
+      .hero-stat:nth-child(even) { border-right: none; }
+      .hero-stat-num { font-size: 1.7rem; }
+      .hero-stat-label { font-size: .68rem; }
 
       /* badge bar */
-      .badge-bar { flex-direction: column; text-align: center; gap: .6rem; padding: 1.2rem 5vw; }
-      .badge-bar p { font-size: .82rem; }
+      .badge-bar { flex-direction: column; text-align: center; gap: .5rem; padding: 1.2rem 5vw; }
 
       /* diferenciais */
       .dif-grid { grid-template-columns: 1fr; }
-      .dif-img { height: 260px; grid-row: auto; }
+      .dif-img { height: 250px; grid-row: auto; }
       .dif-text, .dif-text-lower { padding: 2rem 1.5rem; }
-      .dif-text h3, .dif-text-lower h3 { font-size: 1.4rem; }
-      .dif-bullets li { font-size: .9rem; }
 
       /* lazer */
-      .lazer-inner { padding: 0 5vw; }
-      .lazer-card { min-width: 280px; height: 380px; }
-      .lazer-card-label { font-size: .7rem; }
+      .lazer-card { min-width: 260px; height: 340px; }
 
       /* tipologias */
       .tipo-grid { grid-template-columns: 1fr; }
-      .tipo-card-img { height: 240px; }
       .tipo-card-body { padding: 1.8rem; }
-      .tipo-spec-val { font-size: 1.6rem; }
-      .tipo-spec-key { font-size: .68rem; }
 
       /* atributos */
       .attr-grid { grid-template-columns: 1fr 1fr; }
-      .attr-item { padding: 1.6rem; }
+      .attr-item { padding: 1.5rem; }
       .attr-item:nth-child(2n) { border-right: none; }
       .attr-item:nth-child(3n) { border-right: 1px solid #d8e4d5; }
-      .attr-item h4 { font-size: 1rem; }
-      .attr-item p { font-size: .86rem; }
 
       /* localização */
       .local-section { grid-template-columns: 1fr; }
-      .local-text { padding: 3.5rem 5vw; }
-      .local-map { min-height: 320px; position: relative; }
-      .local-item-content h4 { font-size: .85rem; }
-      .local-item-content p { font-size: .88rem; }
+      .local-text { padding: 3rem 5vw; }
+      .local-map { min-height: 280px; }
 
       /* história */
       .hist-section { grid-template-columns: 1fr; }
-      .hist-img { min-height: 260px; }
-      .hist-text { padding: 3.5rem 5vw; }
-      .hist-text p { font-size: .92rem; }
+      .hist-img { min-height: 240px; }
+      .hist-text { padding: 3rem 5vw; }
 
       /* CTA / form */
-      .cta-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 5vw; }
+      .cta-section { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 5vw; }
       .form-box { padding: 2rem 1.5rem; }
-      .form-box h3 { font-size: 1.4rem; }
-      .qualif-list li { font-size: .88rem; }
 
       /* footer */
-      footer { flex-direction: column; text-align: center; padding: 2.5rem 5vw; gap: 1rem; }
-      .footer-info { text-align: center; font-size: .78rem; }
+      footer { flex-direction: column; text-align: center; padding: 2rem 5vw; gap: .8rem; }
     }
 
     @media (max-width: 480px) {
-      /* hero ainda menor */
-      .hero h1 { font-size: 2.3rem; }
-      .hero-tag { font-size: .68rem; }
-      .hero-stats { grid-template-columns: 1fr 1fr; }
-      .hero-stat-num { font-size: 1.6rem; }
-
-      /* nav compacto */
-      .nav-logo { font-size: 1rem; }
-      .nav-logo-sub { font-size: .55rem; }
-      .nav-cta { font-size: .7rem; padding: .6rem 1rem; }
-
-      /* atributos em coluna única */
+      .hero h1 { font-size: 2.1rem; }
+      .hero-tag { font-size: .68rem; letter-spacing: .14em; }
       .attr-grid { grid-template-columns: 1fr; }
       .attr-item { border-right: none !important; }
-
-      /* lazer scroll menor */
-      .lazer-card { min-width: 240px; height: 320px; }
-
-      /* form mais simples */
-      .form-field input,
-      .form-field select { font-size: .95rem; padding: .9rem 1rem; }
-      .form-submit { font-size: .82rem; padding: 1.1rem; }
-
-      /* tipo specs */
-      .tipo-specs { gap: .8rem; }
-      .tipo-spec-val { font-size: 1.5rem; }
-
-      /* section lead maior no mobile */
-      .section-lead { font-size: 1rem; }
-      .section-tag { font-size: .72rem; }
-
-      /* dif bullets */
-      .dif-bullets li { font-size: .88rem; }
-
-      /* local items */
-      .local-icon { width: 2.2rem; height: 2.2rem; font-size: .9rem; }
+      .lazer-card { min-width: 220px; height: 300px; }
     }
   </style>
 
@@ -850,7 +804,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -864,13 +818,13 @@
       <a href="#tipologias" class="btn-ghost">Ver as casas</a>
     </div>
   </div>
-  <div class="hero-stats">
-    <div class="hero-stat"><span class="hero-stat-num">137–140</span><span class="hero-stat-label">m² de área privativa</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">Suítes em todas as casas</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">2</span><span class="hero-stat-label">Vagas cobertas</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">25.000</span><span class="hero-stat-label">m² de terreno total</span></div>
-  </div>
-</section>
+</div>
+<div class="hero-stats">
+  <div class="hero-stat"><span class="hero-stat-num">137–140</span><span class="hero-stat-label">m² de área privativa</span></div>
+  <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">Suítes em todas as casas</span></div>
+  <div class="hero-stat"><span class="hero-stat-num">2</span><span class="hero-stat-label">Vagas cobertas</span></div>
+  <div class="hero-stat"><span class="hero-stat-num">25.000</span><span class="hero-stat-label">m² de terreno total</span></div>
+</div>
 
 <!-- BADGE BAR -->
 <div class="badge-bar">
